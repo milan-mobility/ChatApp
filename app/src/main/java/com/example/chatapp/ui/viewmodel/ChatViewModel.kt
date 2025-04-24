@@ -30,6 +30,9 @@ class ChatViewModel : ViewModel() {
         this.botId=botId
     }
 
+    /**
+     * connect with the socket.
+     */
     fun connectSocket() {
         val request = Request.Builder()
             .url("wss://echo.websocket.events")
@@ -50,9 +53,11 @@ class ChatViewModel : ViewModel() {
                     return
                 }
 
+                // Update the message in the livedata
                 _messages.value?.add(ChatMessage(text, isSent = false,botId?:""))
                 _messages.postValue(_messages.value)
 
+                //Update the chatbot model to show the last preview message.
                 ChatRepository.updateLastMessage(botId, text)
             }
 
@@ -63,12 +68,18 @@ class ChatViewModel : ViewModel() {
         })
     }
 
+    /**
+     * Reconnect on every 3 second if it;s not failed to connect.
+     */
     private fun reconnect() {
         Handler(Looper.getMainLooper()).postDelayed({
             connectSocket()
         }, 3000)
     }
 
+    /**
+     * Send a message
+     */
     fun sendMessage(message: String) {
 
         val sent = webSocket?.send(message) ?: false
@@ -80,6 +91,9 @@ class ChatViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Set the message to Queue when device not connected with an internet.
+     */
     fun retryQueue() {
         viewModelScope.launch {
             val iterator = queue.iterator()

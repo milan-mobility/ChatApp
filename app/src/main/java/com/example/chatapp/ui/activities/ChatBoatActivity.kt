@@ -3,13 +3,9 @@ package com.example.chatapp.ui.activities
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.chatapp.R
 import com.example.chatapp.databinding.ActivityChatBoatBinding
 import com.example.chatapp.ui.adapter.ChatAdapter
 import com.example.chatapp.ui.viewmodel.ChatBotViewModel

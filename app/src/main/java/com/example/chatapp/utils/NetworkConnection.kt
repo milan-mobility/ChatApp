@@ -4,6 +4,8 @@ import android.content.Context
 import android.net.*
 import androidx.lifecycle.LiveData
 
+
+
 class NetworkConnection(private val context: Context) : LiveData<Boolean>() {
 
     private val connectivityManager =
