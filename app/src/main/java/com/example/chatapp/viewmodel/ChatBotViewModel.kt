@@ -1,9 +1,9 @@
-package com.example.chatapp.ui.viewmodel
+package com.example.chatapp.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.chatapp.data.model.ChatBot
+import com.example.chatapp.models.ChatBot
 import com.example.chatapp.repository.ChatRepository
 
 class ChatBotViewModel:ViewModel() {

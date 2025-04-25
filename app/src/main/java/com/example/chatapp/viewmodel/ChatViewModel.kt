@@ -1,4 +1,4 @@
-package com.example.chatapp.ui.viewmodel
+package com.example.chatapp.viewmodel
 
 import android.os.Handler
 import android.os.Looper
@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.chatapp.data.model.ChatMessage
+import com.example.chatapp.models.ChatMessage
 import com.example.chatapp.repository.ChatRepository
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
@@ -54,7 +54,7 @@ class ChatViewModel : ViewModel() {
                 }
 
                 // Update the message in the livedata
-                _messages.value?.add(ChatMessage(text, isSent = false,botId?:""))
+                _messages.value?.add(ChatMessage(text, isSent = false,botId))
                 _messages.postValue(_messages.value)
 
                 //Update the chatbot model to show the last preview message.
@@ -69,12 +69,12 @@ class ChatViewModel : ViewModel() {
     }
 
     /**
-     * Reconnect on every 3 second if it;s not failed to connect.
+     * Reconnect on every 4 second if it's not failed to connect.
      */
     private fun reconnect() {
         Handler(Looper.getMainLooper()).postDelayed({
             connectSocket()
-        }, 3000)
+        }, 4000)
     }
 
     /**
@@ -87,6 +87,7 @@ class ChatViewModel : ViewModel() {
             _messages.value?.add(ChatMessage(message, isSent = true,botId))
             _messages.postValue(_messages.value)
         } else {
+            //added into the queue if it's not send due to any reason.
             queue.add(message)
         }
     }

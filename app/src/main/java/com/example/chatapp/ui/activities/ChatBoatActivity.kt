@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chatapp.databinding.ActivityChatBoatBinding
 import com.example.chatapp.ui.adapter.ChatAdapter
-import com.example.chatapp.ui.viewmodel.ChatBotViewModel
+import com.example.chatapp.viewmodel.ChatBotViewModel
 
 class ChatBoatActivity : AppCompatActivity() {
 

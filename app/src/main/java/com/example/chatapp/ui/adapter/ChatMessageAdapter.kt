@@ -3,38 +3,47 @@ package com.example.chatapp.ui.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.chatapp.R
-import com.example.chatapp.data.model.ChatMessage
+import com.example.chatapp.databinding.ItemMessageReceivedBinding
+import com.example.chatapp.databinding.ItemMessageSentBinding
+import com.example.chatapp.models.ChatMessage
 
 class ChatMessageAdapter(private val messages: MutableList<ChatMessage>) :
-    RecyclerView.Adapter<ChatMessageAdapter.ChatViewHolder>() {
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    inner class ChatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val sentText: TextView = itemView.findViewById(R.id.tv_sent)
-        val receivedText: TextView = itemView.findViewById(R.id.tv_received)
+    companion object {
+        private const val TYPE_SENT = 0
+        private const val TYPE_RECEIVED = 1
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_chat_message, parent, false)
-        return ChatViewHolder(view)
+    inner class SentMessageViewHolder(val binding: ItemMessageSentBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    inner class ReceivedMessageViewHolder(val binding: ItemMessageReceivedBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    override fun getItemViewType(position: Int): Int {
+        return if (messages[position].isSent) TYPE_SENT else TYPE_RECEIVED
     }
 
-    override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
-        val message = messages[position]
-
-        if (message.isSent) {
-            holder.sentText.text = message.message
-            holder.sentText.visibility = View.VISIBLE
-            holder.receivedText.visibility = View.GONE
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        return if (viewType == TYPE_SENT) {
+            val binding = ItemMessageSentBinding.inflate(layoutInflater, parent, false)
+            SentMessageViewHolder(binding)
         } else {
-            holder.receivedText.text = message.message
-            holder.receivedText.visibility = View.VISIBLE
-            holder.sentText.visibility = View.GONE
+            val binding = ItemMessageReceivedBinding.inflate(layoutInflater, parent, false)
+            ReceivedMessageViewHolder(binding)
+        }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val message = messages[position]
+        if (holder is SentMessageViewHolder) {
+            holder.binding.message = message
+        } else if (holder is ReceivedMessageViewHolder) {
+            holder.binding.message = message
         }
     }
 

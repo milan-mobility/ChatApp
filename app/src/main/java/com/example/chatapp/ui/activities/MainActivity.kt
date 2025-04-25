@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chatapp.R
 import com.example.chatapp.databinding.ActivityMainBinding
 import com.example.chatapp.ui.adapter.ChatMessageAdapter
-import com.example.chatapp.ui.viewmodel.ChatViewModel
+import com.example.chatapp.viewmodel.ChatViewModel
 import com.example.chatapp.utils.NetworkConnection
 
 class MainActivity : AppCompatActivity() {

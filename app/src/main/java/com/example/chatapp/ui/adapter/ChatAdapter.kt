@@ -6,8 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.chatapp.R
-import com.example.chatapp.data.model.ChatBot
-import com.example.chatapp.data.model.ChatMessage
+import com.example.chatapp.models.ChatBot
 
 class ChatAdapter(
     private val bots: List<ChatBot>,
