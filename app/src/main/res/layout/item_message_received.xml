@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_received"
         android:gravity="start"
+        android:layout_margin="5dp"
         android:orientation="vertical"
         android:layout_marginStart="10dp"
         android:padding="8dp">
